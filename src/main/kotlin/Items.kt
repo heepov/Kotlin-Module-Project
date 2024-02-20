@@ -15,14 +15,11 @@ class Note(override val title: String, private var content: String): Items {
 }
 class Archive(override val title:String): Items {
     private val noteList = mutableListOf<Note>()
-
     fun getNoteList(): MutableList<Note> = noteList
-
     fun addNote(note: Note) {
         noteList.add(note)
         note.archive = this
     }
-
     fun delNote(noteTitle: String) {
         val noteToRemove = noteList.find { it.title == noteTitle }
         noteToRemove?.let {

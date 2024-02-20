@@ -1,4 +1,4 @@
-enum class Text(val value: String) {
+enum class Text(val txt: String) {
     DELIMITER("------------\n"),
     MAIN_WELCOME("Приложение Заметки запущено!"),
     MAIN_TITLE("ГЛАВНОЕ МЕНЮ"),
@@ -32,7 +32,7 @@ enum class Text(val value: String) {
     NOTE_INSIDE_EXIT("Вернуться к выбору заметки"),
 
     ERRORS_INPUT("!!!Ошибка ввода!!!"),
-    ERRORS_INPUT_MENU("${ERRORS_INPUT.value}\nВведите число, соответствующее пункту меню.\n"),
-    ERRORS_INPUT_DIGIT_MENU("${ERRORS_INPUT.value}\nНет пункта в меню, соответствующего данному числу.\n"),
-    ERRORS_INPUT_CREATE("${ERRORS_INPUT.value}\nВвод должен содержать минимум один символ.\n");
+    ERRORS_INPUT_MENU("${ERRORS_INPUT.txt}\nВведите число, соответствующее пункту меню.\n"),
+    ERRORS_INPUT_DIGIT_MENU("${ERRORS_INPUT.txt}\nНет пункта в меню, соответствующего данному числу.\n"),
+    ERRORS_INPUT_CREATE("${ERRORS_INPUT.txt}\nВвод должен содержать минимум один символ.\n");
 }

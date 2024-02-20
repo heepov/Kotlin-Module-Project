@@ -1,3 +1,4 @@
+import Text.*
 interface Editable {
     fun getUserInputString(instruction: String): String
     fun getUserInputBoolean(instruction: String):Boolean
@@ -18,7 +19,7 @@ abstract class EditScreenLogic: Editable {
                     else -> false
                 }
             }catch (e:Exception){
-                println(Text.ERRORS_INPUT.value)
+                println(ERRORS_INPUT.txt)
             }
         }
     }
@@ -28,17 +29,17 @@ abstract class EditScreenLogic: Editable {
             printInstruction(instruction)
             input = readLine().toString().trim()
             if (input.isNotEmpty()) return input
-            else println(Text.ERRORS_INPUT_CREATE.value)
+            else println(ERRORS_INPUT_CREATE.txt)
         }
     }
 }
 class ArchiveCreationScreen:EditScreenLogic() {
     fun createArchive(archiveList:MutableList<Archive>){
-        when(val input = getUserInputString(Text.ARCHIVE_CREATING.value)){
+        when(val input = getUserInputString(ARCHIVE_CREATING.txt)){
             "0" -> return
             else -> {
                 archiveList.add(Archive(input))
-                println(Text.ARCHIVE_CREATED.value)
+                println(ARCHIVE_CREATED.txt)
             }
         }
     }
@@ -47,12 +48,12 @@ class ArchiveCreationScreen:EditScreenLogic() {
 
 class NoteCreationScreen:EditScreenLogic() {
     fun createNote(archive: Archive){
-        val title = getUserInputString(Text.NOTE_CREATING_NAME.value)
+        val title = getUserInputString(NOTE_CREATING_NAME.txt)
         val note:Note
         when(title){
             "0" -> return
             else -> {
-                when(val content = getUserInputString(Text.NOTE_CREATING_TEXT.value)){
+                when(val content = getUserInputString(NOTE_CREATING_TEXT.txt)){
                     "0" -> return
                     else -> {
                         note = Note(title, content)
@@ -61,34 +62,34 @@ class NoteCreationScreen:EditScreenLogic() {
                 }
             }
         }
-        println("${Text.NOTE_CREATED.value}\n${note.title}\n${note.getContent()}\n")
+        println("${NOTE_CREATED.txt}\n${note.title}\n${note.getContent()}\n")
 
     }
 }
 
 class NoteEditScreen:EditScreenLogic(){
     fun editNote(note:Note){
-        val content = getUserInputString("${Text.NOTE_INSIDE_EDIT_MESSAGE.value}\n"+
-                "${Text.NOTE_INSIDE_NOTE_NAME.value} ${note.title}\n" +
-                "${Text.NOTE_INSIDE_CONTENT.value} ${note.getContent()}")
+        val content = getUserInputString("${NOTE_INSIDE_EDIT_MESSAGE.txt}\n"+
+                "${NOTE_INSIDE_NOTE_NAME.txt} ${note.title}\n" +
+                "${NOTE_INSIDE_CONTENT.txt} ${note.getContent()}")
         when(content){
             "0" -> return
             else -> {
                 note.setContent(content)
-                println(Text.NOTE_INSIDE_EDITED.value)
+                println(NOTE_INSIDE_EDITED.txt)
             }
         }
     }
 }
 class NoteRemoveScreen:EditScreenLogic(){
-    fun removeNote(note: Note):Boolean{
-        return when(getUserInputBoolean(Text.NOTE_INSIDE_DELETE_MESSAGE.value)){
+    fun removeNote(note: Note):Int{
+        return when(getUserInputBoolean(NOTE_INSIDE_DELETE_MESSAGE.txt)){
             true -> {
                 note.removeFromArchive()
-                println(Text.NOTE_INSIDE_DELETED.value)
-                true
+                println(NOTE_INSIDE_DELETED.txt)
+                0
             }
-            else -> false
+            else -> 1
         }
     }
 }

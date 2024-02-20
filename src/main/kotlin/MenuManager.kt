@@ -1,14 +1,15 @@
 import java.util.Stack
+import Text.*
 class MenuManager {
     fun start(){
-        val scrnStack = Stack<SelectScreenLogic>()
+        val screenStack = Stack<SelectScreenLogic>()
         val archiveList = mutableListOf<Archive>()
-        scrnStack.push(MainMenuSelectionScreen())
+        screenStack.push(MainMenuSelectionScreen())
 
-        println(Text.MAIN_WELCOME.value)
+        println(MAIN_WELCOME.txt)
 
-        while (scrnStack.isNotEmpty()){
-            val currentScreen = scrnStack.peek()
+        while (screenStack.isNotEmpty()){
+            val currentScreen = screenStack.peek()
             currentScreen.displayMenuItems()
             val userInput = currentScreen.getUserInputMenuSelect()
             val action = currentScreen.executeSelectAction(userInput)
@@ -16,24 +17,24 @@ class MenuManager {
             when(currentScreen){
                 is MainMenuSelectionScreen ->{
                     when(action){
-                        0 -> scrnStack.pop()
-                        1 -> scrnStack.push(ArchiveSelectionScreen(archiveList))
+                        0 -> screenStack.pop()
+                        1 -> screenStack.push(ArchiveSelectionScreen(archiveList))
                     }
                 }
                 is ArchiveSelectionScreen ->{
                     when(action){
-                        0 -> scrnStack.pop()
-                        is Archive -> scrnStack.push(NoteSelectionScreen(action))
+                        0 -> screenStack.pop()
+                        is Archive -> screenStack.push(NoteSelectionScreen(action))
                     }
                 }
                 is NoteSelectionScreen ->{
                     when(action){
-                        0 -> scrnStack.pop()
-                        is Note -> scrnStack.push(NoteInsideScreen(action))
+                        0 -> screenStack.pop()
+                        is Note -> screenStack.push(NoteInsideScreen(action))
                     }
                 }
                 is NoteInsideScreen ->{
-                     if (action == 0) scrnStack.pop()
+                     if (action == 0) screenStack.pop()
                 }
             }
         }

@@ -1,3 +1,4 @@
+import Text.*
 interface Selectable {
     fun updateMenuItems()
     fun displayMenuItems()
@@ -9,7 +10,7 @@ abstract class SelectScreenLogic: Selectable {
     val menuItems = mutableListOf<Pair<String, () -> Any?>>()
     override fun displayMenuItems() {
         updateMenuItems()
-        println(Text.DELIMITER.value + menuTitle)
+        println(DELIMITER.txt + menuTitle)
         menuItems.forEachIndexed { index, menuItem ->
             println("${index + 1}. ${menuItem.first}")
         }
@@ -21,9 +22,9 @@ abstract class SelectScreenLogic: Selectable {
             try {
                 input = readln().trim().toInt()
                 if(input > 0 && input <= menuItems.size) return input
-                else println(Text.ERRORS_INPUT_DIGIT_MENU.value)
+                else println(ERRORS_INPUT_DIGIT_MENU.txt)
             }catch (e:Exception){
-                println(Text.ERRORS_INPUT_MENU.value)
+                println(ERRORS_INPUT_MENU.txt)
             }
             displayMenuItems()
         }
@@ -32,16 +33,15 @@ abstract class SelectScreenLogic: Selectable {
         return menuItems.getOrNull(input - 1)?.second?.invoke()
     }
 }
-
 class MainMenuSelectionScreen: SelectScreenLogic() {
     override fun updateMenuItems() {
         menuItems.clear()
-        menuItems.add(Text.MAIN_SHUT_DOWN.value to {
-            println(Text.MAIN_LAST_WORD.value)
+        menuItems.add(MAIN_SHUT_DOWN.txt to {
+            println(MAIN_LAST_WORD.txt)
             return@to 0
         })
-        menuItems.add(Text.MAIN_ARCHIVE.value to { return@to 1})
-        menuTitle = Text.MAIN_TITLE.value
+        menuItems.add(MAIN_ARCHIVE.txt to { return@to 1})
+        menuTitle = MAIN_TITLE.txt
     }
 }
 fun addItemsInMenuItems(items:List<Items>, description:String): MutableList<Pair<String, () -> Any?>>{
@@ -56,44 +56,27 @@ fun addItemsInMenuItems(items:List<Items>, description:String): MutableList<Pair
 class ArchiveSelectionScreen(private val archiveList:MutableList<Archive>): SelectScreenLogic() {
     override fun updateMenuItems() {
         menuItems.clear()
-        menuItems.add(Text.ARCHIVE_EXIT.value to {return@to 0})
-        menuItems.add(Text.ARCHIVE_CREATE.value to {
-            val archiveCreationScreen = ArchiveCreationScreen()
-            archiveCreationScreen.createArchive(archiveList)
-            updateMenuItems()
-        })
-        menuItems.addAll(addItemsInMenuItems(archiveList, Text.ARCHIVE_SELECT.value))
-        menuTitle = Text.ARCHIVE_TITLE.value
+        menuItems.add(ARCHIVE_EXIT.txt to {return@to 0})
+        menuItems.add(ARCHIVE_CREATE.txt to { ArchiveCreationScreen().createArchive(archiveList)})
+        menuItems.addAll(addItemsInMenuItems(archiveList, ARCHIVE_SELECT.txt))
+        menuTitle = ARCHIVE_TITLE.txt
     }
 }
 class NoteSelectionScreen(private val archive: Archive): SelectScreenLogic(){
     override fun updateMenuItems() {
         menuItems.clear()
-        menuItems.add(Text.NOTE_EXIT.value to { return@to 0})
-        menuItems.add(Text.NOTE_CREATE.value to {
-            val noteCreationScreen = NoteCreationScreen()
-            noteCreationScreen.createNote(archive)
-            updateMenuItems()
-        })
-        menuItems.addAll(addItemsInMenuItems(archive.getNoteList(),Text.NOTE_SELECT.value))
-        menuTitle = "${Text.NOTE_TITLE.value} ${archive.title}"
+        menuItems.add(NOTE_EXIT.txt to { return@to 0})
+        menuItems.add(NOTE_CREATE.txt to { NoteCreationScreen().createNote(archive)})
+        menuItems.addAll(addItemsInMenuItems(archive.getNoteList(),NOTE_SELECT.txt))
+        menuTitle = "${NOTE_TITLE.txt} ${archive.title}"
     }
 }
 class NoteInsideScreen(private val note: Note):SelectScreenLogic(){
     override fun updateMenuItems() {
         menuItems.clear()
-        menuItems.add(Text.NOTE_INSIDE_EXIT.value to { return@to 0})
-        menuItems.add(Text.NOTE_INSIDE_EDIT.value to {
-            val noteEditScreen = NoteEditScreen()
-            noteEditScreen.editNote(note)
-            updateMenuItems()
-        })
-        menuItems.add(Text.NOTE_INSIDE_DELETE.value to{
-            val noteRemoveScreen = NoteRemoveScreen()
-            if(noteRemoveScreen.removeNote(note)) return@to 0
-            updateMenuItems()
-        })
-        menuTitle = "${Text.NOTE_INSIDE_NOTE_NAME.value} ${note.title}\n" +
-                "${Text.NOTE_INSIDE_CONTENT.value} ${note.getContent()}"
+        menuItems.add(NOTE_INSIDE_EXIT.txt to { return@to 0})
+        menuItems.add(NOTE_INSIDE_EDIT.txt to { NoteEditScreen().editNote(note)})
+        menuItems.add(NOTE_INSIDE_DELETE.txt to{ return@to NoteRemoveScreen().removeNote(note)})
+        menuTitle = "${NOTE_INSIDE_NOTE_NAME.txt} ${note.title}\n${NOTE_INSIDE_CONTENT.txt} ${note.getContent()}"
     }
 }
