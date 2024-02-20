@@ -13,7 +13,6 @@ class Note(override val title: String, private var content: String): Items {
         archive = null
     }
 }
-
 class Archive(override val title:String): Items {
     private val noteList = mutableListOf<Note>()
 

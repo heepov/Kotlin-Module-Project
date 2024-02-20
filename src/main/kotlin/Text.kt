@@ -32,7 +32,7 @@ enum class Text(val value: String) {
     NOTE_INSIDE_EXIT("Вернуться к выбору заметки"),
 
     ERRORS_INPUT("!!!Ошибка ввода!!!"),
-    ERRORS_INPUT_MENU("${ERRORS_INPUT.value}\nВведите число, соответствующее пункту меню"),
-    ERRORS_INPUT_DIGIT_MENU("${ERRORS_INPUT.value}\nНет пункта в меню, соответствующего данному числу"),
-    ERRORS_INPUT_CREATE("${ERRORS_INPUT.value}\nВвод должен содержать минимум один символ.");
+    ERRORS_INPUT_MENU("${ERRORS_INPUT.value}\nВведите число, соответствующее пункту меню.\n"),
+    ERRORS_INPUT_DIGIT_MENU("${ERRORS_INPUT.value}\nНет пункта в меню, соответствующего данному числу.\n"),
+    ERRORS_INPUT_CREATE("${ERRORS_INPUT.value}\nВвод должен содержать минимум один символ.\n");
 }

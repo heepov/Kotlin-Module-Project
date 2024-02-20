@@ -1,20 +1,20 @@
 import java.util.Stack
 class MenuManager {
     fun start(){
-        val scrnStack = Stack<BaseMenu>()
+        val scrnStack = Stack<SelectScreenLogic>()
         val archiveList = mutableListOf<Archive>()
-        scrnStack.push(MainMenuScreen())
+        scrnStack.push(MainMenuSelectionScreen())
 
         println(Text.MAIN_WELCOME.value)
 
         while (scrnStack.isNotEmpty()){
             val currentScreen = scrnStack.peek()
-            currentScreen.displayMenu()
-            val userInput = currentScreen.getUserInputDigit()
+            currentScreen.displayMenuItems()
+            val userInput = currentScreen.getUserInputMenuSelect()
             val action = currentScreen.executeSelectAction(userInput)
 
             when(currentScreen){
-                is MainMenuScreen ->{
+                is MainMenuSelectionScreen ->{
                     when(action){
                         0 -> scrnStack.pop()
                         1 -> scrnStack.push(ArchiveSelectionScreen(archiveList))
