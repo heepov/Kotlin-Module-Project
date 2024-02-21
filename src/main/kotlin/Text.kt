@@ -1,5 +1,8 @@
-enum class Text(val txt: String) {
+// this file stores all main string literals of the program
+enum class Text(val str: String) {
     DELIMITER("------------\n"),
+    INPUT_FIELD("> "),
+
     MAIN_WELCOME("Приложение Заметки запущено!"),
     MAIN_TITLE("ГЛАВНОЕ МЕНЮ"),
     MAIN_ARCHIVE("Открыть архив или создать новый"),
@@ -32,7 +35,7 @@ enum class Text(val txt: String) {
     NOTE_INSIDE_EXIT("Вернуться к выбору заметки"),
 
     ERRORS_INPUT("!!!Ошибка ввода!!!"),
-    ERRORS_INPUT_MENU("${ERRORS_INPUT.txt}\nВведите число, соответствующее пункту меню.\n"),
-    ERRORS_INPUT_DIGIT_MENU("${ERRORS_INPUT.txt}\nНет пункта в меню, соответствующего данному числу.\n"),
-    ERRORS_INPUT_CREATE("${ERRORS_INPUT.txt}\nВвод должен содержать минимум один символ.\n");
+    ERRORS_INPUT_MENU("${ERRORS_INPUT.str}\nВведите ЧИСЛО, соответствующее пункту меню.\n"),
+    ERRORS_INPUT_DIGIT_MENU("${ERRORS_INPUT.str}\nНет пункта в меню, соответствующего данному числу.\n"),
+    ERRORS_INPUT_CREATE("${ERRORS_INPUT.str}\nВвод должен содержать минимум один символ.\n");
 }
